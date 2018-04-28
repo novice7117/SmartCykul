@@ -2,19 +2,33 @@
 //  AppDelegate.swift
 //  SmartCykulApplication
 //
-//  Created by Surendra on 02/02/18.
-//  Copyright © 2018 Surendra. All rights reserved.
+//  Created by  Cykul Cykul on 02/02/18.
+//  Copyright © 2018  Cykul Cykul. All rights reserved.
 //
 
 import UIKit
+import IQKeyboardManagerSwift
+import GoogleMaps
+import SDWebImage
+import SVProgressHUD
+import CoreBluetooth
+import CoreLocation
+var verCount = 0
+var verficationLabelText = ""
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    let core = CLLocationManager()
 
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
+    {
+        GMSServices.provideAPIKey("AIzaSyAP2OFNvApXyBToyfaPd34YOO-vfvA2yrk")
+        IQKeyboardManager.sharedManager().enable = true
+        core.requestWhenInUseAuthorization()
+        
         // Override point for customization after application launch.
         return true
     }
@@ -40,7 +54,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    func getLgoinViewController()
+    {
+        let mainStoryboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let objController = mainStoryboard.instantiateViewController(withIdentifier: "lvc") as? LoginViewController
+        let navController = UINavigationController.init()
+        let arrayControllers = [objController]
+        navController.viewControllers  = arrayControllers as! [UIViewController]
+        navController.navigationBar.isHidden = false
+        self.window?.rootViewController = navController
+        self.window?.makeKeyAndVisible()
+    }
+func userdefaults()
+{
 
+    }
 
 }
 
