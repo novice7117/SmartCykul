@@ -158,6 +158,7 @@ class UnlockViewController: UIViewController,CBCentralManagerDelegate,CBPeripher
             locationManager.requestWhenInUseAuthorization()
             locationManager.requestAlwaysAuthorization()
         }
+        self.json()
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber)
@@ -327,12 +328,7 @@ class UnlockViewController: UIViewController,CBCentralManagerDelegate,CBPeripher
     
     @IBAction func unlock(_ sender: Any)
     {
-        
         createUnlockCommand(responseFound: result)
-        
-//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "IssueSucessfullyViewController") as! IssueSucessfullyViewController
-//        self.navigationController?.pushViewController(vc, animated: true)
-        
     }
     
     
@@ -368,17 +364,13 @@ class UnlockViewController: UIViewController,CBCentralManagerDelegate,CBPeripher
                 print(l)
                 print(k)
             }
-            
-            
-            
-            
         }
         
         
     }
     func createUnlockCommand(responseFound : [UInt8])
     {
-        //self.json()
+        
         var unlockCommand = Data(bytes: [0xFE, 0x32, 0x49, 0x95, 0xFF, 0x6D, secretKey(response:responseFound), 0x21, 0x00] as [UInt8], count: 9)
         //let data = NSData(bytes: &unlockCommand, length: unlockCommand )
         
@@ -406,13 +398,13 @@ class UnlockViewController: UIViewController,CBCentralManagerDelegate,CBPeripher
         
         lockPeripheral.writeValue(newunlockCommand, for: writeCharacteristic, type: CBCharacteristicWriteType.withResponse)
         
+        
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
             
             self.centralManager.cancelPeripheralConnection(self.lockPeripheral)
         })
         
-       // let vc = self.storyboard?.instantiateViewController(withIdentifier:"IssueSucessfullyViewController") as! IssueSucessfullyViewController
-      //  self.navigationController?.present(vc, animated: true, completion: nil)
         //lockPeripheral.readValue(for: writeCharacteristic)
         //centralManager.cancelPeripheralConnection(lockPeripheral)
         
@@ -503,30 +495,18 @@ class UnlockViewController: UIViewController,CBCentralManagerDelegate,CBPeripher
                             
                             let currentStatus = json["result"] as! String
                            // let message = json["message"] as! String
+                            
                             DispatchQueue.main.async()
                                 {
                                     SVProgressHUD.dismiss()
                                     if currentStatus == "true"
                                     {
-                                        // self.performSegue(withIdentifier: "Login", sender: nil)
-                                        
-//                                        CMId = json["customerID"] as! String
-//                                        let currentMobileNumber = json["mobileNumber"] as! String
-//                                        let currentStationName = json["station_name"] as! String
-//
-//                                        let defaults = UserDefaults.standard
-//                                        //  defaults.set(currentCustomerID, forKey: "Customer_ID")
-//                                        // defaults.set(currentMobileNumber, forKey: "Mobile_Number")
-//                                        defaults.set(currentStationName, forKey: "StationName")
-//                                        defaults.synchronize()
-                                        
-                                        
-                                        
-                                       
+                                       let vc = self.storyboard?.instantiateViewController(withIdentifier: "IssueSucessfullyViewController" ) as! IssueSucessfullyViewController
+                                        self.navigationController?.pushViewController(vc, animated: true)
                                     }
                                     else
                                     {
-                                        let alert = UIAlertController(title: "Attention", message:"", preferredStyle: .alert)
+                                        let alert = UIAlertController(title: "Attention", message:"your cycle has an issue", preferredStyle: .alert)
                                         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {(_ action: UIAlertAction) -> Void in
                                         }))
                                         self.present(alert, animated: true, completion: nil)

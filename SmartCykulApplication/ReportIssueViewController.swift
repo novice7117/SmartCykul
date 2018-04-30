@@ -39,7 +39,7 @@ class ReportIssueViewController: UIViewController,UIPickerViewDelegate,UIPickerV
     {
         super.viewDidLoad()
         textview.delegate = self
-        textview.text = "placeholder text here..."
+        textview.text = "provide additional information..."
         textview.textColor = .lightGray
         
         if (revealViewController() != nil)
@@ -391,7 +391,7 @@ class ReportIssueViewController: UIViewController,UIPickerViewDelegate,UIPickerV
     
     func textViewDidBeginEditing(_ textView: UITextView)
     {
-        if (textview.text == "placeholder text here...")
+        if (textview.text == "provide additional information...")
         {
             textView.text = ""
             textView.textColor = .black
@@ -403,7 +403,7 @@ class ReportIssueViewController: UIViewController,UIPickerViewDelegate,UIPickerV
     {
         if (textview.text == "")
         {
-            textView.text = "placeholder text here..."
+            textView.text = "provide additional information..."
             textView.textColor = .lightGray
         }
         textView.resignFirstResponder()

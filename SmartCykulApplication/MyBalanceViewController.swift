@@ -184,34 +184,118 @@ class MyBalanceViewController: UIViewController,UITextFieldDelegate
   
 
     
-    func json(body: String)
-    {
+//    func json(body: String)
+//    {
+//
+//        // customerID = "CUST"
+////        orderId = response["ORDERID"]! as! String
+////        transactionID = response["TXNID"]! as! String
+////        paymentDate = response["TXNDATE"]! as! String
+////        paymentAmount = response["TXNAMOUNT"]! as! String
+////        paymentPurpose = "CYKUL RIDES"
+//
+//        if currentReachabilityStatus == .reachableViaWiFi || currentReachabilityStatus == .reachableViaWWAN
+//        {
+//
+//             print("#################################")
+//             print("#################################")
+//             print("#################################")
+//             print("#################################")
+//            print(CMId)
+//
+//            SVProgressHUD.show(withStatus: "Loading...")
+//            let url = URL(string:"https://www.cykul.com/smartCykul/cykulPay.php")
+////            let body: String = "customerID=\(CMId)&orderID=\(orderId)&transactionID=\(transactionID)&paymentAmount=\(paymentAmount)&paymentDate=\(paymentDate)&paymentPurpose=\(paymentPurpose)"
+//         //   print("result========>\(customerID!)==\(orderId!)==\(transactionID!)==\(paymentAmount!)==\(paymentDate!)==\(paymentPurpose!)")
+//            //  print("pwd...\(mobile_Number!)&\(newPwdTF.text!)")
+//
+//            let request = NSMutableURLRequest(url:url!)
+//            request.httpMethod = "POST"
+//            request.httpBody = body.data(using: String.Encoding.utf8)
+//            let session = URLSession(configuration:URLSessionConfiguration.default)
+//
+//            let datatask = session.dataTask(with: request as URLRequest, completionHandler:
+//            {
+//                (data,response,error)-> Void in
+//                if (error != nil)
+//                {
+//                    print(error!)
+//                }
+//                else
+//                {
+//                    let httpResponse = response as? HTTPURLResponse
+//                    print(httpResponse!)
+//                    if let data = data
+//                    {
+//                        do
+//                        {
+//                            let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: AnyObject]
+//
+//                            print(json)
+//
+//                            let currentStatus = json["result"] as! String
+//
+//                            DispatchQueue.main.async()
+//                                {
+//                                    SVProgressHUD.dismiss()
+//
+//                                    if currentStatus == "true"
+//                                    {
+//                                        print("paytm payment sucessfully")
+//                                        let alert = UIAlertController(title: "Smart Cykul", message:"Transaction Successful", preferredStyle: .alert)
+//                                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {(_ action: UIAlertAction) -> Void in
+//                                        }))
+//                                        self.present(alert, animated: true, completion: nil)
+//                                        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+//                                    }
+//                                    else
+//                                    {
+//                                        let alert = UIAlertController(title: "Smart Cykul", message:"Transaction Faild", preferredStyle: .alert)
+//                                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {(_ action: UIAlertAction) -> Void in
+//                                        }))
+//                                        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+//                                    }
+//
+//
+//                            }
+//                        }
+//                        catch
+//                        {
+//                            print(error)
+//                        }
+//                        //SVProgressHUD.dismiss()
+//                    }
+//                }
+//
+//            })
+//            datatask.resume()
+//        }
+//        else
+//        {
+//            let alert = UIAlertController(title: "Attention", message:"Please check your network connection", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {(_ action: UIAlertAction) -> Void in
+//            }))
+//            self.present(alert, animated: true, completion: nil)
+//            print("There is no internet connection")
+//        }
+//    }
+    
+    func myJsonDetailsSender(sendBody : String)  {
         
-        // customerID = "CUST"
-//        orderId = response["ORDERID"]! as! String
-//        transactionID = response["TXNID"]! as! String
-//        paymentDate = response["TXNDATE"]! as! String
-//        paymentAmount = response["TXNAMOUNT"]! as! String
-//        paymentPurpose = "CYKUL RIDES"
+        
         
         if currentReachabilityStatus == .reachableViaWiFi || currentReachabilityStatus == .reachableViaWWAN
         {
             
-             print("#################################")
-             print("#################################")
-             print("#################################")
-             print("#################################")
-            print(CMId)
-            
             SVProgressHUD.show(withStatus: "Loading...")
             let url = URL(string:"https://www.cykul.com/smartCykul/cykulPay.php")
-//            let body: String = "customerID=\(CMId)&orderID=\(orderId)&transactionID=\(transactionID)&paymentAmount=\(paymentAmount)&paymentDate=\(paymentDate)&paymentPurpose=\(paymentPurpose)"
-         //   print("result========>\(customerID!)==\(orderId!)==\(transactionID!)==\(paymentAmount!)==\(paymentDate!)==\(paymentPurpose!)")
+            
+            print("result========>\(customerID!)==\(orderId!)==\(transactionID!)==\(paymentAmount!)==\(paymentDate!)==\(paymentPurpose!)")
             //  print("pwd...\(mobile_Number!)&\(newPwdTF.text!)")
             
             let request = NSMutableURLRequest(url:url!)
             request.httpMethod = "POST"
-            request.httpBody = body.data(using: String.Encoding.utf8)
+            request.httpBody = sendBody.data(using: String.Encoding.utf8)
             let session = URLSession(configuration:URLSessionConfiguration.default)
             
             let datatask = session.dataTask(with: request as URLRequest, completionHandler:
@@ -230,17 +314,14 @@ class MyBalanceViewController: UIViewController,UITextFieldDelegate
                         do
                         {
                             let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: AnyObject]
-                           
                             print(json)
-                            
                             let currentStatus = json["result"] as! String
                             
                             DispatchQueue.main.async()
                                 {
                                     SVProgressHUD.dismiss()
                                     
-                                    if currentStatus == "true"
-                                    {
+                                    if currentStatus == "true"{
                                         print("paytm payment sucessfully")
                                         let alert = UIAlertController(title: "Smart Cykul", message:"Transaction Successful", preferredStyle: .alert)
                                         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {(_ action: UIAlertAction) -> Void in
@@ -255,8 +336,8 @@ class MyBalanceViewController: UIViewController,UITextFieldDelegate
                                         }))
                                         UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
                                     }
-                            
-
+                                    
+                                    
                             }
                         }
                         catch
@@ -313,8 +394,8 @@ class MyBalanceViewController: UIViewController,UITextFieldDelegate
                             print(json)
                             
                             let currentResultStatus = json["result"] as! String
-                            let cycleValue = json["cykulpay"]
-                            let s:String = String(format:"%f", (cycleValue as AnyObject).doubleValue) //formats the string to accept double/float
+                            var cycleValue = json["cykulpay"] as! String
+                            var s:String = String(format:"%f", (cycleValue as AnyObject).doubleValue) //formats the string to accept double/float
                             print("+++++++++++++++++++++++++++")
                             print(s)
                             print("yesResponse : ++++>>  ",json)
@@ -324,7 +405,10 @@ class MyBalanceViewController: UIViewController,UITextFieldDelegate
                                     SVProgressHUD.dismiss()
                                     if currentResultStatus == "true"
                                     {
-                                        self.Rs0Lbl.text = String(s.characters.prefix(5))
+                                       if var dotRange = cycleValue.range(of: ".")                                        {
+                                           cycleValue.removeSubrange(dotRange.lowerBound..<cycleValue.endIndex)
+                                       }
+                                        self.Rs0Lbl.text = cycleValue
                                         //                                        let cykulPay = json["cykulpay"] as! String
                                         //                                        //let rideCharge = json["rideCharge"] as! String
                                         //
@@ -531,38 +615,88 @@ extension MyBalanceViewController:PGTransactionDelegate{
         self.present(alert, animated: true, completion: nil)
         
     }
+//    func didSucceedTransaction(_ controller: PGTransactionViewController!, response: [AnyHashable : Any]!) {
+//        customerID = "CUST"
+//        orderId = response["ORDERID"]! as! String
+//        transactionID = response["TXNID"]! as! String
+//        paymentDate = response["TXNDATE"]! as! String
+//        paymentAmount = response["TXNAMOUNT"]! as! String
+//        paymentPurpose = "CYKUL RIDES"
+//
+//        print("......................>",response)
+//        self.removeController(contrl: controller)
+//        self.json(body: "customerID=\(CMId)&orderID=\(orderId)&transactionID=\(transactionID)&paymentAmount=\(paymentAmount)&paymentDate=\(paymentDate)&paymentPurpose=\(paymentPurpose)"
+//        )
+//        print(CMId)
+//        print(orderId)
+//        print(transactionID)
+//        print(paymentDate)
+//        print(paymentAmount)
+//        print(paymentPurpose)
+//        print("payment Done")
+//        let alert = UIAlertController(title: "Smart Cykul", message:"Transaction Successful", preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {(_ action: UIAlertAction) -> Void in
+//        }))
+//        self.present(alert, animated: true, completion: nil)
+//        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+//
+//    }
+    
     func didSucceedTransaction(_ controller: PGTransactionViewController!, response: [AnyHashable : Any]!) {
+        self.removeController(contrl: controller)
         customerID = "CUST"
         orderId = response["ORDERID"]! as! String
         transactionID = response["TXNID"]! as! String
         paymentDate = response["TXNDATE"]! as! String
         paymentAmount = response["TXNAMOUNT"]! as! String
         paymentPurpose = "CYKUL RIDES"
-
-        print("......................>",response)
-        self.removeController(contrl: controller)
-        self.json(body: "customerID=\(CMId)&orderID=\(orderId)&transactionID=\(transactionID)&paymentAmount=\(paymentAmount)&paymentDate=\(paymentDate)&paymentPurpose=\(paymentPurpose)"
-        )
-        print(CMId)
-        print(orderId)
-        print(transactionID)
-        print(paymentDate)
-        print(paymentAmount)
-        print(paymentPurpose)
-        print("payment Done")
-        let alert = UIAlertController(title: "Smart Cykul", message:"Transaction Successful", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {(_ action: UIAlertAction) -> Void in
-        }))
-        self.present(alert, animated: true, completion: nil)
-        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+        let myS = "CYKSMART"
+        let orderIdRoundedFigure = orderId.index(orderId.endIndex, offsetBy: -6)
+        let truncated = orderId.substring(to: orderIdRoundedFigure)
         
+        
+        
+        //  self.json()
+        print("@@@@@@@@@@@ Did Succeed Transaction @@@@@@@@@@@@@@")
+        // print("......................>",response)
+        self.removeController(contrl: controller)
+        print("@@@@@@@@@@@ Did Succeed Transaction After removing @@@@@@@@@@@@@@")
+        //  print("......................>",response)
+        print("CMId is -------> \(CMId)")
+        print("mbID is -------> \(mbID)")
+        print("-------------Response ID---------------")
+        print( response["ORDERID"]! )
+        let body: String = "customerID=\(CMId)&orderID=\(myS)+\(truncated)&mobileNumber=\(mbID)&         transactionID=\(transactionID!)&paymentAmount=\(paymentAmount!)&paymentDate=\(paymentDate!)&paymentPurpose=\(paymentPurpose!)&txStatus=suceedT &txResponse=suceedT"
+        myJsonDetailsSender(sendBody: body)
     }
+    
+//    func didFailTransaction(_ controller: PGTransactionViewController!, error: Error!, response: [AnyHashable : Any]!) {
+//        self.removeController(contrl: controller)
+//
+//    }
     
     func didFailTransaction(_ controller: PGTransactionViewController!, error: Error!, response: [AnyHashable : Any]!) {
+        
         self.removeController(contrl: controller)
         
+        print("@@@@@@@@@@@ Did fail Transaction After removing @@@@@@@@@@@@@@")
+        customerID = "CUST"
+        orderId = response["ORDERID"]! as! String
+        transactionID = response["TXNID"]! as! String
+        paymentDate = response["TXNDATE"]! as! String
+        paymentAmount = response["TXNAMOUNT"]! as! String
+        paymentPurpose = "CYKUL RIDES"
+        
+        let myS = "CYKSMART"
+        let orderIdRoundedFigure = orderId.index(orderId.endIndex, offsetBy: -6)
+        let truncated = orderId.substring(to: orderIdRoundedFigure)
+        
+        
+        print("CMId is -------> \(CMId)")
+        print("mbID is -------> \(mbID)")
+        let body: String = "customerID=\(CMId)&orderID=\(myS)\(truncated)&mobileNumber=\(mbID)&         transactionID=\(transactionID!)&paymentAmount=\(paymentAmount!)&paymentDate=\(paymentDate!)&paymentPurpose=\(paymentPurpose!)&txStatus=failT Transaction &txResponse=failT"
+        myJsonDetailsSender(sendBody: body)
     }
-    
     func didCancelTransaction(_ controller: PGTransactionViewController!, error: Error!, response: [AnyHashable : Any]!) {
         self.removeController(contrl: controller)
     }
@@ -587,6 +721,7 @@ extension MyBalanceViewController:PGTransactionDelegate{
         case WebSearch
     }
 }
+
 
 
 

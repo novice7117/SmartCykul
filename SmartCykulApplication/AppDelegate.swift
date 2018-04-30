@@ -66,10 +66,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = navController
         self.window?.makeKeyAndVisible()
     }
-func userdefaults()
-{
-
+    
+    func getVerificationViewController()
+    {
+        let mainStoryboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let objController = mainStoryboard.instantiateViewController(withIdentifier: "VerificationViewController") as? VerificationViewController
+        let navController = UINavigationController.init()
+        let arrayControllers = [objController]
+        navController.viewControllers  = arrayControllers as! [UIViewController]
+        navController.navigationBar.isHidden = false
+        self.window?.rootViewController = navController
+        self.window?.makeKeyAndVisible()
     }
-
 }
 

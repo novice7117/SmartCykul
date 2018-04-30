@@ -20,16 +20,16 @@ class VerificationViewController: UIViewController
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(true)
-    //self.verificationStatus()
-    
-    
+        verificationStatus(body: "https://www.cykul.com/smartCykul/checkVerificationStatus.php", url: "customerID=\(CMId)")
+        
+        
     }
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
-        verificationStatus()
+     verificationStatus(body: "https://www.cykul.com/smartCykul/checkVerificationStatus.php", url: "customerID=\(CMId)")
         
         if revealViewController != nil
             
@@ -39,7 +39,7 @@ class VerificationViewController: UIViewController
             
             barBtn.action = #selector(SWRevealViewController.revealToggle(_:))
             
-            self.view.addGestureRecognizer(revealViewController().panGestureRecognizer())
+           // self.view.addGestureRecognizer(revealViewController().panGestureRecognizer())
             
         }
         
@@ -49,14 +49,17 @@ class VerificationViewController: UIViewController
     }
 
     
-    func verificationStatus()
+    
+    
+    
+    func verificationStatus(body:String,url: String)
     {
         if currentReachabilityStatus == .reachableViaWiFi || currentReachabilityStatus == .reachableViaWWAN
         {
             SVProgressHUD.show(withStatus: "Loading...")
-            
-            let url = URL(string:"https://www.cykul.com/smartCykul/checkVerificationStatus.php")
-            let body: String = "customerID=\(CMId)"
+           // "https://www.cykul.com/smartCykul/checkVerificationStatus.php"
+            let url = URL(string:url)
+          //  let body: String = "customerID=\(CMId)"
             let request = NSMutableURLRequest(url:url!)
             request.httpMethod = "POST"
             request.httpBody = body.data(using: String.Encoding.utf8)
@@ -83,16 +86,25 @@ class VerificationViewController: UIViewController
                             print("++++++++++++++++++++++++++++")
                             print(myjson)
                             var currentStatus = myjson["result"] as! String
-                            
-                            
-                            
                             DispatchQueue.main.async()
                                 {
 
                                     if currentStatus == "true"
                                     {
-                                        let vc = self.storyboard?.instantiateViewController(withIdentifier:"SWRevealViewController") as! SWRevealViewController
-                                        self.navigationController?.present(vc, animated: true, completion: nil)
+                                        let alert = UIAlertController(title: "Smart Cykul", message:"verification", preferredStyle: .alert)
+                                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {(_ action: UIAlertAction) -> Void in
+
+//                                            let defaults = UserDefaults.standard
+//                                            defaults.set(true, forKey: "Ver")
+//                                            let objAppDelegate = (UIApplication.shared.delegate as? AppDelegate)
+//                                            objAppDelegate?.getVerificationViewController()
+
+                                        }))
+                                        
+                                        self.present(alert, animated: true, completion: nil)
+                                        
+//                                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "svc") as! SlideViewController
+//                                        self.navigationController?.pushViewController(vc, animated: true)
                                     }
                                     else
                                     {
@@ -220,6 +232,31 @@ class VerificationViewController: UIViewController
     @IBAction func verificationHomebtn(_ sender: Any) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "svc") as! SlideViewController
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func GovernmentIDProofBtn(_ sender: Any)
+    {
+//        checkDocumentStatus.php
+//        params.put("customerID",customerID);
+        
+        verificationStatus(body: "https://www.cykul.com/smartCykul/checkVerificationStatus.php", url: "customerID=\(CMId)")
+        
+        let alert = UIAlertController(title: "Smart Cykul", message:"your documents are veriffied sucessfully", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {(_ action: UIAlertAction) -> Void in
+            
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func uploadRecentBTN(_ sender: Any)
+    {
+        let alert = UIAlertController(title: "Smart Cykul", message:"your documents are veriffied sucessfully", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {(_ action: UIAlertAction) -> Void in
+            
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     

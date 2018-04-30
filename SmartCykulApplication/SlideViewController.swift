@@ -134,103 +134,103 @@ class SlideViewController: UIViewController,GMSMapViewDelegate,CLLocationManager
    
     @IBAction func unlockbtn(_ sender: Any)
     {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "Bluetooth") as! BluetoothQRViewController
-        self.navigationController?.pushViewController(vc, animated: true)
+//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "Bluetooth") as! BluetoothQRViewController
+//        self.navigationController?.pushViewController(vc, animated: true)
         
-//        if currentReachabilityStatus == .reachableViaWiFi || currentReachabilityStatus == .reachableViaWWAN
-//        {
-//            SVProgressHUD.show(withStatus: "Loading...")
-//            stationName = "CYKUL"
-//            // let stationName:String!
-//            let url = URL(string:"https://www.cykul.com/smartCykul/newEligibilityCondition.php")
-//            let body: String = "customerID=\(CMId)&mobileNumber=\(mbID)&stationName=\(stationName)"
-//            //print("feedback==>==\(customerID!)&\(!)&\(stationName!)")
-//            let request = NSMutableURLRequest(url:url!)
-//            request.httpMethod = "POST"
-//            request.httpBody = body.data(using: String.Encoding.utf8)
-//            let session = URLSession(configuration:URLSessionConfiguration.default)
-//
-//            let datatask = session.dataTask(with: request as URLRequest, completionHandler:
-//            {
-//                (data,response,error)-> Void in
-//                if (error != nil)
-//                {
-//                    print(error!)
-//                }
-//                else
-//                {
-//                    let httpResponse = response as? HTTPURLResponse
-//                    print(httpResponse!)
-//                    if let data = data
-//                    {
-//                        do {
-//                            let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String:AnyObject]
-//                            print("yesResponse : ++++>>  ", json)
-//
-//                            let currentResultStatus = json["result"] as! String
-//                            let message = json["message"] as! String
-//
-//
-//                            //let currentReportStatus = json["report_status"] as! String
-//
-//                            DispatchQueue.main.async()
-//                                {
-//                                    SVProgressHUD.dismiss()
-//                                    if message == "Valid Subscriber"
-//                                    {
-//                                       let vc = self.storyboard?.instantiateViewController(withIdentifier: "Bluetooth") as! BluetoothQRViewController
-//                                        self.navigationController?.pushViewController(vc, animated: true)
-//                                    }
-//                                    else
-//                                    {
-//                                        let alert = UIAlertController(title: "Attention", message:message, preferredStyle: .alert)
-//                                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{(_ action: UIAlertAction) -> Void in
-//
-//                                            switch action.style{
-//                                            case .default:
-//                                                print("default")
-//
-//                                            case .cancel:
-//                                                print("cancel")
-//
-//                                            case .destructive:
-//                                                print("destructive")
-//
-//
-//                                            }
-//                                        }))
-//                                        self.present(alert, animated: true, completion: nil)
-//                                    }
-//
-//                                    // self.tableView.reloadData()
-//                                    // SVProgressHUD.dismiss()
-//
-//
-//                            }
-//                        }
-//
-//
-//                        catch
-//                        {
-//                            print(error)
-//                        }
-//                    }
-//                }
-//
-//            })
-//            datatask.resume()
-//        }
-//
-//        else
-//        {
-//            let alert = UIAlertController(title: "Attention", message:"Please check your network connection", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {(_ action: UIAlertAction) -> Void in
-//            }))
-//            self.present(alert, animated: true, completion: nil)
-//            print("There is no internet connection")
-//        }
-//
-//
+        if currentReachabilityStatus == .reachableViaWiFi || currentReachabilityStatus == .reachableViaWWAN
+        {
+            SVProgressHUD.show(withStatus: "Loading...")
+            stationName = "CYKUL"
+            // let stationName:String!
+            let url = URL(string:"https://www.cykul.com/smartCykul/newEligibilityCondition.php")
+            let body: String = "customerID=\(CMId)&mobileNumber=\(mbID)&stationName=\(stationName)"
+            //print("feedback==>==\(customerID!)&\(!)&\(stationName!)")
+            let request = NSMutableURLRequest(url:url!)
+            request.httpMethod = "POST"
+            request.httpBody = body.data(using: String.Encoding.utf8)
+            let session = URLSession(configuration:URLSessionConfiguration.default)
+
+            let datatask = session.dataTask(with: request as URLRequest, completionHandler:
+            {
+                (data,response,error)-> Void in
+                if (error != nil)
+                {
+                    print(error!)
+                }
+                else
+                {
+                    let httpResponse = response as? HTTPURLResponse
+                    print(httpResponse!)
+                    if let data = data
+                    {
+                        do {
+                            let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String:AnyObject]
+                            print("yesResponse : ++++>>  ", json)
+
+                            let currentResultStatus = json["result"] as! String
+                            let message = json["message"] as! String
+
+
+                            //let currentReportStatus = json["report_status"] as! String
+
+                            DispatchQueue.main.async()
+                                {
+                                    SVProgressHUD.dismiss()
+                                    if message == "Valid Subscriber"
+                                    {
+                                       let vc = self.storyboard?.instantiateViewController(withIdentifier: "Bluetooth") as! BluetoothQRViewController
+                                        self.navigationController?.pushViewController(vc, animated: true)
+                                    }
+                                    else
+                                    {
+                                        let alert = UIAlertController(title: "Attention", message:message, preferredStyle: .alert)
+                                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler:{(_ action: UIAlertAction) -> Void in
+
+                                            switch action.style{
+                                            case .default:
+                                                print("default")
+
+                                            case .cancel:
+                                                print("cancel")
+
+                                            case .destructive:
+                                                print("destructive")
+
+
+                                            }
+                                        }))
+                                        self.present(alert, animated: true, completion: nil)
+                                    }
+
+                                    // self.tableView.reloadData()
+                                    // SVProgressHUD.dismiss()
+
+
+                            }
+                        }
+
+
+                        catch
+                        {
+                            print(error)
+                        }
+                    }
+                }
+
+            })
+            datatask.resume()
+        }
+
+        else
+        {
+            let alert = UIAlertController(title: "Attention", message:"Please check your network connection", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {(_ action: UIAlertAction) -> Void in
+            }))
+            self.present(alert, animated: true, completion: nil)
+            print("There is no internet connection")
+        }
+
+
         
         
         

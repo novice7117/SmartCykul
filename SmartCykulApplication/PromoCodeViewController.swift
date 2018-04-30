@@ -11,6 +11,7 @@ import SVProgressHUD
 
 class PromoCodeViewController: UIViewController,UITextFieldDelegate
 {
+    @IBOutlet weak var availLbl: UILabel!
     @IBOutlet weak var scheme2: UILabel!
     @IBOutlet weak var scheme1: UILabel!
     var customerID,mobileNumber:String!
@@ -20,6 +21,7 @@ class PromoCodeViewController: UIViewController,UITextFieldDelegate
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        availLbl.isHidden = true
         self.promoCodeTF.delegate = self
         promoCodeTF.keyboardType = UIKeyboardType.asciiCapable
         
@@ -91,6 +93,7 @@ class PromoCodeViewController: UIViewController,UITextFieldDelegate
                     if let data = data
                     {
                         do
+                            
                         {
                             let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: AnyObject]
                             print(json)
@@ -108,7 +111,7 @@ class PromoCodeViewController: UIViewController,UITextFieldDelegate
                                         //let message = json["message"] as! String
                                         let schemeOneMessage = json["schemeOneMessage"] as! String
                                         let schemeTwoMessage = json["schemeTwoMessage"] as! String
-                                        
+                                        self.availLbl.isHidden = false
 //                                        let defaults = UserDefaults.standard
 //                                        defaults.set(currentFirst30Mins, forKey: "SubFirst30Min")
 //                                        defaults.set(currentEveryAdd30Mins, forKey: "SubAdditionl30Min")

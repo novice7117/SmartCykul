@@ -114,8 +114,8 @@ class MyActivitiesViewController: UIViewController,UITableViewDelegate,UITableVi
                     print(httpResponse!)
                     if let data = data
                     {
-                        do {
-                            
+                        do
+                        {
                             let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String:AnyObject]
                             print("+++++++++++++++++++++++++++++++++++++")
                             //print(json.count)
